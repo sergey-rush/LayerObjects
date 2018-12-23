@@ -1,0 +1,67 @@
+﻿@using LOB.Core
+@model LOB.Web.Models.DataModel
+
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<div class="section-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Регистрация</h1>
+</div>
+
+<div class="text-center">
+
+    @{
+        using (Html.BeginForm("Register", "Public", null, FormMethod.Post, new { @class = "form-signin", novalidate = "" }))
+        {
+
+            <div class="mb-3">
+                <label for="inputEmail">Email</label>
+                @Html.TextBoxFor(m => m.SelectedUser.Email, new { id = "inputEmail", type = "email", @class = "form-control", placeholder = "Email", required = "" })
+                <div class="invalid-feedback">
+                    Введите email.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="inputPassword">Пароль</label>
+                @Html.TextBoxFor(m => m.SelectedUser.Pass, new { id = "inputPassword", type = "password", @class = "form-control", placeholder = "Пароль", required = "" })
+                <div class="invalid-feedback">
+                    Введите пароль.
+                </div>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>@Html.CheckBoxFor(m => m.SelectedUser.RememberMe, new { id = "accept-agreement", @class = "checkbox mb-3" }) Я принимаю условия соглашения</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>@Html.CheckBoxFor(m => m.SelectedUser.RememberMe, new { id = "accept-rules", @class = "checkbox mb-3" }) Я принимаю правила LOB Express</label>
+            </div>
+
+           
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрировать</button>
+
+            <ul class="list-group">
+                @foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        <li class="list-group-item list-group-item-danger">@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+            <hr class="mb-4">
+            <div class="mb-3">
+                <p>Уже есть аккаунт?</p>
+                <a href="@Url.Action("Index", "Public")">Войти в личный кабинет</a>
+            </div>
+        }
+    }
+
+</div>
+
+<script>
+
+</script>

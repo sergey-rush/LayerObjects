@@ -1,0 +1,95 @@
+﻿/* ---- Phone preview ---- */
+
+.phonePreview {
+    /*float: left;*/
+    position: relative;
+    width: 229px;
+    height: 444px;
+    background: url("../images/phone_preview.png") 0 0 no-repeat;
+    margin: 0 0 0 20px;
+}
+
+    .phonePreview header {
+        position: absolute;
+        left: 20px;
+        top: 82px;
+        right: 21px;
+        height: 37px;
+        background: url("../images/phone_preview_sign_bg.png") 0 0 repeat-x;
+        text-align: center;
+        font: 16px/32px Arial;
+        color: #fff;
+        text-shadow: -1px 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .phonePreview .scroll {
+        position: absolute;
+        left: 20px;
+        top: 119px;
+        right: 21px;
+        height: 244px;
+    }
+
+        .phonePreview .scroll .antiscroll-inner {
+            height: 245px !important;
+            width: 250px !important;
+            overflow: auto;
+        }
+
+        .phonePreview .scroll .antiscroll-scrollbar-vertical {
+            left: auto;
+            right: 2px;
+        }
+
+    .phonePreview .message {
+        position: relative;
+        font: 12px/16px Arial;
+        color: #000;
+        width: 131px;
+        margin: 12px 0 17px 2px;
+        padding: 0 14px;
+        background: url("../images/phone_preview_message_bg.png") -159px 0 repeat-y;
+        word-wrap: break-word;
+    }
+
+        .phonePreview .message .message-top {
+            position: absolute;
+            top: -12px;
+            left: 0;
+            width: 159px;
+            height: 12px;
+            background: url("../images/phone_preview_message_bg.png") 0 0 no-repeat;
+        }
+
+        .phonePreview .message .message-bottom {
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            width: 159px;
+            height: 17px;
+            background: url("../images/phone_preview_message_bg.png") 0 100% no-repeat;
+        }
+
+    .phonePreview .test-send-form {
+        position: absolute;
+        left: 20px;
+        right: 21px;
+        bottom: 81px;
+        height: 33px;
+        background: url("../images/phone_preview_test_send_form_bg.png") 0 0 repeat-x;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+        .phonePreview .test-send-form INPUT[type=text] {
+            width: 100px;
+            line-height: 19px;
+            padding: 2px 4px;
+        }
+
+        .phonePreview .test-send-form BUTTON {
+            font-size: 12px;
+            height: 26px;
+            line-height: 19px;
+            padding: 2px 4px;
+        }

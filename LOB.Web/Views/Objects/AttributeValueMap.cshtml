@@ -1,0 +1,48 @@
+﻿@using LOB.Core
+@model LOB.Web.Models.DataModel
+
+<div id="map" style="width: 100%; height: 800px; padding: 0; margin:0 auto;"></div>
+
+
+
+@section Scripts
+{
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+
+        function init() {
+
+            var id = "@Model.SelectedAttributeValue.AttributeId.ToString("N")";
+            var lat = @Model.SelectedAttributeValue.Latitude.ToString("0.000000", System.Globalization.CultureInfo.InvariantCulture);
+            var lon = @Model.SelectedAttributeValue.Longitude.ToString("0.000000", System.Globalization.CultureInfo.InvariantCulture);
+
+            var myMap = new ymaps.Map('map',
+                    {
+                        center: [lat, lon],
+                        zoom: 10
+                    },
+                    {
+                        searchControlProvider: 'yandex#search'
+                    }),
+                objectManager = new ymaps.ObjectManager({
+                    clusterize: true,
+                    gridSize: 32,
+                    clusterDisableClickZoom: true
+                });
+           
+            objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+            objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+            myMap.geoObjects.add(objectManager);
+
+            $.ajax({
+                url: "../../api/data/geodata?id=" + id
+            }).done(function(data) {
+                objectManager.add(data);
+            });
+
+        }
+    </script>
+
+}
+

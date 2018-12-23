@@ -1,0 +1,84 @@
+﻿@using LOB.Core
+@model LOB.Web.Models.DataModel
+
+<div class="section-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">@Model.SelectedElementType.Caption</h1>
+</div>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th scope="col">AttributeId</th>
+            <th scope="col">AttributeType</th>
+            <th scope="col">Code</th>
+            <th scope="col">Description</th>
+            <th scope="col">Caption</th>
+            <th scope="col">AttrValueCount</th>
+            <th scope="col">Map</th>
+            <th scope="col">AttrValues</th>
+            <th scope="col">Mndr</th>
+            <th scope="col">Vsbl</th>
+            <th scope="col">Srbl</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (ElementTypeAttribute item in Model.ElementTypeAttributes)
+            {
+        <tr>
+            <td>
+                @item.AttributeId
+            </td>
+            <td title="@item.Title">
+                @item.AttributeType
+            </td>
+            <td>
+                @item.Code
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Caption
+            </td>
+            <td>
+                @item.AttrValueCount
+            </td>
+            <td>
+                <a href="@Url.Action("AttributeValueMap", "Objects", new {id = item.AttributeId})" target="_blank">Map</a>
+            </td>
+            <td>
+                <a href="@Url.Action("AttributeValueList", "Objects", new {id = item.AttributeId})" target="_blank">AttrValues</a>
+            </td>
+            <td>
+                @item.Mandatory
+            </td>
+            <td>
+                @item.Visibility
+            </td>
+            <td>
+                @item.Searchable
+            </td>
+        </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+<br />
+
+<br />
+
+<script type="text/javascript">
+
+    $(document).scroll(function () {
+        localStorage['page'] = document.URL;
+        localStorage['scrollTop'] = $(document).scrollTop();
+    });
+    $(document).ready(function () {
+        if (localStorage['page'] == document.URL) {
+            $(document).scrollTop(localStorage['scrollTop']);
+        }
+    });
+</script>

@@ -1,0 +1,65 @@
+﻿@using LOB.Core
+@model LOB.Web.Models.DataModel
+
+
+
+<div class="section-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Профиль</h1>
+    <p class="lead">@Model.SelectedUser.Name</p>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-auto">
+        @{
+            using (Html.BeginForm("UserProfile", "Account", null, FormMethod.Post, new { @class = "needs-validation", novalidate = "" }))
+            {
+                <div class="mb-3">
+
+                    <label for="inputFirstName">Имя</label>
+                    @Html.TextBoxFor(m => m.SelectedUser.Name, new { id = "inputFirstName", type = "text", @class = "form-control", placeholder = "Имя", required = "" })
+                    <div class="invalid-feedback">
+                        Valid first name is required.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPhone">Телефон</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">+7</span>
+                        </div>
+                        @Html.TextBoxFor(m => m.SelectedUser.Phone, new { id = "inputPhone", type = "email", @class = "form-control", placeholder = "Телефон", required = "" })
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Phone is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputEmail">Email</label>
+                    @Html.TextBoxFor(m => m.SelectedUser.Email, new { id = "inputEmail", type = "email", @class = "form-control", placeholder = "Email", required = "" })
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="inputRole">Роль пользователя:</label>
+                        @Html.DropDownListFor(m => m.SelectedRole.Id, new SelectList(Model.Roles, "Id", "Alias"), new { id = "inputRole", @class = "custom-select d-block w-100", required = "" })
+                        <div class="invalid-feedback">
+                            Please provide a valid role.
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить</button>
+            }
+        }
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+
+    </script>
