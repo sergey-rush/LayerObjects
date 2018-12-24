@@ -28,9 +28,11 @@ namespace LOB.Data
         public abstract AttributeValue GetAvgAttributeValueByAttributeId(Guid attributeId);
         public abstract int CountAttributeValues(Guid attributeId);
         public abstract Attribute GetAttributeByAttributeId(Guid attribute);
+        public abstract List<AttributeValue> GetAttributeValuesByAttributeId(Guid attributeId);
         public abstract int InsertAttribute(Attribute attribute);
         public abstract bool UpdateAttribute(Attribute attribute);
-        public abstract bool DeleteAttributeByAttributeId(int attributeId);
+        public abstract bool DeleteAttributeByAttributeId(Guid attributeId);
+        public abstract bool DeleteAttributeValueByAttributeId(Guid attributeId);
         protected virtual Attribute GetAttributeFromReader(IDataReader reader)
         {
             Attribute attribute = new Attribute()
@@ -75,18 +77,22 @@ namespace LOB.Data
                 attribute.Value = reader["Value"].ToString();
             }
 
-            if (reader["Caption"] != DBNull.Value)
+            if (reader.FieldCount > 3)
             {
-                attribute.Caption = reader["Caption"].ToString();
-            }
+                if (reader["Caption"] != DBNull.Value)
+                {
+                    attribute.Caption = reader["Caption"].ToString();
+                }
 
-            if (reader["Longitude"] != DBNull.Value)
-            {
-                attribute.Longitude = Convert.ToDouble(reader["Longitude"]);
-            }
-            if (reader["Latitude"] != DBNull.Value)
-            {
-                attribute.Latitude = Convert.ToDouble(reader["Latitude"]);
+                if (reader["Longitude"] != DBNull.Value)
+                {
+                    attribute.Longitude = Convert.ToDouble(reader["Longitude"]);
+                }
+
+                if (reader["Latitude"] != DBNull.Value)
+                {
+                    attribute.Latitude = Convert.ToDouble(reader["Latitude"]);
+                }
             }
 
             return attribute;

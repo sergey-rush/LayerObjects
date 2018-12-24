@@ -8,6 +8,29 @@ namespace LOB.Web.Controllers
 {
     public class ObjectsController : Controller
     {
+        [GuidSelector]
+        public ActionResult DeleteElementType(Guid id)
+        {
+            bool result = ElementTypes.DeleteElementTypeByElementTypeId(id);
+            return RedirectToLocal("");
+        }
+
+        [HttpGet]
+        public ActionResult AddElementType()
+        {
+            DataModel model = new DataModel();
+            model.DrawingTypes = DrawingTypes.GetDrawingTypes();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddElementType(DataModel model)
+        {
+            Guid id = ElementTypes.InsertElementType(model.SelectedElementType);
+            model.DrawingTypes = DrawingTypes.GetDrawingTypes();
+            return View(model);
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "ElementTypes";
@@ -75,7 +98,7 @@ namespace LOB.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Public");
+                return RedirectToAction("Index", "Objects");
             }
         }
     }

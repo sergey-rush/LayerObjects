@@ -14,6 +14,18 @@ namespace LOB.Data
         {
             get { return ConfigurationManager.ConnectionStrings["LayerObjects"].ToString(); }
         }
+        public static RoleManager Roles
+        {
+            get { return RoleManager.Instance; }
+        }
+        public static LayerManager Layers
+        {
+            get { return LayerManager.Instance; }
+        }
+        public static DrawingTypeManager DrawingTypes
+        {
+            get { return DrawingTypeManager.Instance; }
+        }
         public static AttributeManager Attributes
         {
             get { return AttributeManager.Instance; }

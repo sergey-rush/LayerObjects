@@ -38,7 +38,7 @@ namespace LOB.Web.Controllers
             model.Roles = Users.GetRoles();
             model.SelectedUser.Email = model.SelectedUser.Email;
             model.SelectedUser.Phone = model.SelectedUser.Phone;
-            model.SelectedRole = model.Roles.FirstOrDefault(x => x.Id == model.SelectedUser.Id);
+            //model.SelectedRole = model.Roles.FirstOrDefault(x => x.Id == model.SelectedUser.Id);
             ViewBag.Title = String.Format("Профиль - {0}", model.SelectedUser.Name);
             return View(model);
         }
@@ -47,7 +47,7 @@ namespace LOB.Web.Controllers
         public ActionResult UserProfile(DataModel model)
         {
             model.SelectedUser = Users.GetUserByEmail(User.Identity.Name);
-            model.SelectedUser.Role = (LOB.Core.RoleType)model.SelectedRole.Id;
+            //model.SelectedUser.Role = (LOB.Core.RoleType)model.SelectedRole.Id;
             model.SelectedUser.Phone = model.SelectedUser.Phone;
             model.SelectedUser.Email = model.SelectedUser.Email;
             //Users.UpdateUser(model.SelectedUser);

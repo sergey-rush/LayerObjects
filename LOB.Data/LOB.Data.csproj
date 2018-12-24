@@ -43,11 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawingTypeManager.cs" />
     <Compile Include="AttributeManager.cs" />
+    <Compile Include="DrawingTypeProvider.cs" />
     <Compile Include="ElementTypeAttributeManager.cs" />
     <Compile Include="AttributeProvider.cs" />
+    <Compile Include="RoleManager.cs" />
+    <Compile Include="LayerManager.cs" />
     <Compile Include="ElementTypeManager.cs" />
     <Compile Include="ElementTypeAttributeProvider.cs" />
+    <Compile Include="RoleProvider.cs" />
+    <Compile Include="LayerProvider.cs" />
     <Compile Include="ElementTypeProvider.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="ContactManager.cs" />

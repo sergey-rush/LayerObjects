@@ -52,9 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawingTypes.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="ElementTypeAttributes.cs" />
+    <Compile Include="Roles.cs" />
+    <Compile Include="Layers.cs" />
     <Compile Include="ElementTypes.cs" />
     <Compile Include="DataMonitor.cs" />
     <Compile Include="Logs.cs" />

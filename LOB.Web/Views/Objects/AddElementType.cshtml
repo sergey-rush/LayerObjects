@@ -1,0 +1,66 @@
+﻿@using LOB.Core
+@model LOB.Web.Models.DataModel
+
+<div class="section-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">New ElementType</h1>
+    <p>Мастер позволяет создать новый ElementType и связанные с ним атрибуты</p>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-auto">
+        @{
+            using (Html.BeginForm("AddElementType", "Objects", null, FormMethod.Post, new { novalidate = "" }))
+            {
+                <div class="mb-3">
+                    <label for="inputCode">Code</label>
+                    @Html.TextBoxFor(m => m.SelectedElementType.Code, new { id = "inputCode", type = "text", @class = "form-control", placeholder = "Code", required = "" })
+                    <div class="invalid-feedback">
+                        Valid code name is required.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputCaption">Caption</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.SelectedElementType.Caption, new { id = "inputCaption", type = "text", @class = "form-control", placeholder = "Caption", required = "" })
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Caption is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="inputDrawingType">DrawingType</label>
+                        @Html.DropDownListFor(m => m.SelectedElementType.DrawingTypeId, new SelectList(Model.DrawingTypes, "Id", "Caption"), new { id = "inputDrawingType", @class = "custom-select d-block w-100", required = "" })
+                        <div class="invalid-feedback">
+                            Please provide a valid DrawingType.
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить</button>
+            }
+        }
+    </div>
+</div>
+
+
+
+<br />
+
+<br />
+
+
+    <script type="text/javascript">
+
+        $(document).scroll(function () {
+            localStorage['page'] = document.URL;
+            localStorage['scrollTop'] = $(document).scrollTop();
+        });
+        $(document).ready(function () {
+            if (localStorage['page'] == document.URL) {
+                $(document).scrollTop(localStorage['scrollTop']);
+            }
+        });
+    </script>

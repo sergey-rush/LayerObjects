@@ -13,7 +13,6 @@ namespace LOB.Web.Models
         public string DeliveryAddress { get; set; }
         public string Comments { get; set; }
         public int ShopId { get; set; }
-        public Route Route { get; set; }
-        public List<OrderItem> OrderItems { get; set; } 
+        public LayerElementType Route { get; set; }
     }
 }

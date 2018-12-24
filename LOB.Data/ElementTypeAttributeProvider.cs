@@ -50,24 +50,6 @@ WHERE (eta.ElementTypeId = @ElementTypeId)";
             }
         }
 
-        public override ElementTypeAttribute GetElementTypeAttributeByElementTypeAttributeId(int elementTypeAttributeId)
-        {
-            using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
-            {
-                SqlCommand cmd = new SqlCommand("ElementTypeAttributes_GetElementTypeAttributeByElementTypeAttributeId", cn);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ElementTypeAttributeId", SqlDbType.Int).Value = elementTypeAttributeId;
-                cn.Open();
-                using (IDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleRow))
-                {
-                    if (reader.Read())
-                        return GetElementTypeAttributeFromReader(reader);
-                    else
-                        return null;
-                }
-            }
-        }
-
         public override int InsertElementTypeAttribute(ElementTypeAttribute elementTypeAttribute)
         {
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
@@ -99,13 +81,28 @@ WHERE (eta.ElementTypeId = @ElementTypeId)";
             }
         }
 
-        public override bool DeleteElementTypeAttributeByElementTypeAttributeId(int elementTypeAttributeId)
+        public override bool DeleteElementTypeAttributeByAttributeId(Guid attributeId)
         {
+            string deleteElementTypeAttributeByAttributeId = @"DELETE FROM ElementTypeAttribute WHERE AttributeId = @AttributeId";
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
             {
-                SqlCommand cmd = new SqlCommand("ElementTypeAttributes_DeleteElementTypeAttributeByElementTypeAttributeId", cn);
+                SqlCommand cmd = new SqlCommand(deleteElementTypeAttributeByAttributeId, cn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ElementTypeAttributeId", SqlDbType.Int).Value = elementTypeAttributeId;
+                cmd.Parameters.Add("@AttributeId", SqlDbType.UniqueIdentifier).Value = attributeId;
+                cn.Open();
+                int ret = ExecuteNonQuery(cmd);
+                return (ret == 1);
+            }
+        }
+
+        public override bool DeleteElementTypeAttributesByElementTypeId(Guid elementTypeId)
+        {
+            string deleteElementTypeAttributeByElementTypeId = @"DELETE FROM ElementTypeAttribute WHERE ElementTypeId = @ElementTypeId";
+            using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
+            {
+                SqlCommand cmd = new SqlCommand(deleteElementTypeAttributeByElementTypeId, cn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("@ElementTypeId", SqlDbType.UniqueIdentifier).Value = elementTypeId;
                 cn.Open();
                 int ret = ExecuteNonQuery(cmd);
                 return (ret == 1);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using LOB.Core;
 using LOB.Data;
 
@@ -47,18 +46,30 @@ namespace LOB.BLL
             return elementTypeAttributes;
         }
         
-        public static ElementTypeAttribute InsertElementTypeAttribute(ElementTypeAttribute elementTypeAttribute)
-        {
-            RemoveFromCache("ElementTypeAttributes_");
-            int elementTypeAttributeId = DataAccess.ElementTypeAttributes.InsertElementTypeAttribute(elementTypeAttribute);
-            elementTypeAttribute = DataAccess.ElementTypeAttributes.GetElementTypeAttributeByElementTypeAttributeId(elementTypeAttributeId);
-            return elementTypeAttribute;
-        }
+        //public static ElementTypeAttribute InsertElementTypeAttribute(ElementTypeAttribute elementTypeAttribute)
+        //{
+        //    RemoveFromCache("ElementTypeAttributes_");
+        //    int elementTypeAttributeId = DataAccess.ElementTypeAttributes.InsertElementTypeAttribute(elementTypeAttribute);
+        //    elementTypeAttribute = DataAccess.ElementTypeAttributes.GetElementTypeAttributeByElementTypeAttributeId(elementTypeAttributeId);
+        //    return elementTypeAttribute;
+        //}
 
         public static bool UpdateElementTypeAttribute(ElementTypeAttribute elementTypeAttribute)
         {
             RemoveFromCache("ElementTypeAttributes_");
             return DataAccess.ElementTypeAttributes.UpdateElementTypeAttribute(elementTypeAttribute);
+        }
+
+        public static bool DeleteElementTypeAttributeByAttributeId(Guid attributeId)
+        {
+            RemoveFromCache("ElementTypeAttributes_");
+            return DataAccess.ElementTypeAttributes.DeleteElementTypeAttributeByAttributeId(attributeId);
+        }
+
+        public static bool DeleteElementTypeAttributesByElementTypeId(Guid elementTypeId)
+        {
+            RemoveFromCache("ElementTypeAttributes_");
+            return DataAccess.ElementTypeAttributes.DeleteElementTypeAttributesByElementTypeId(elementTypeId);
         }
 
     }

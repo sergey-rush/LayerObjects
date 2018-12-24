@@ -16,29 +16,29 @@ namespace LOB.Web.Models
         public ElementTypeAttribute SelectedElementTypeAttribute { get; set; }
         public List<AttributeValue> AttributeValues { get; set; }
         public AttributeValue SelectedAttributeValue { get; set; }
+        public List<DrawingType> DrawingTypes { get; set; }
+        public DrawingType SelectedDrawingType { get; set; }
 
 
         public List<Contact> Contacts { get; set; }
         public Contact SelectedContact { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
-        public OrderItem SelectedOrderItem { get; set; }
-        public List<Product> RelatedProducts { get; set; }
-        public List<Product> Products { get; set; }
-        public Product SelectedProduct { get; set; }
+        public List<DrawingTypeAttribute> RelatedProducts { get; set; }
+        public List<DrawingTypeAttribute> Products { get; set; }
+        public DrawingTypeAttribute SelectedProduct { get; set; }
         public List<Log> Logs { get; set; }
         public Log SelectedLog { get; set; }
         public List<Role> Roles { get; set; }
         public Role SelectedRole { get; set; }
         public List<User> Users { get; set; }
         public User SelectedUser { get; set; }
-        public List<Sked> Skeds { get; set; }
-        public Sked SelectedSked { get; set; }
-        public List<Route> Routes { get; set; }
-        public Route SelectedRoute { get; set; }
-        public List<Position> Positions { get; set; }
-        public Position SelectedPosition { get; set; }
-        public List<Vehicle> Vehicles { get; set; }
-        public Vehicle SelectedVehicle { get; set; }
+        public List<LayerConditionsElement> Skeds { get; set; }
+        public LayerConditionsElement SelectedSked { get; set; }
+        public List<LayerElementType> Routes { get; set; }
+        public LayerElementType SelectedRoute { get; set; }
+        public List<Element> Positions { get; set; }
+        public Element SelectedPosition { get; set; }
+        public List<RoleElementType> Vehicles { get; set; }
+        public RoleElementType SelectedVehicle { get; set; }
         public List<Request> Requests { get; set; }
         public Request SelectedRequest { get; set; }
         public DateTime SelectedDate { get; set; }

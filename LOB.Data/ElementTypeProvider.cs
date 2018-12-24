@@ -43,15 +43,17 @@ namespace LOB.Data
             }
         }
 
-        public override List<ElementType> GetRandomElementTypes(int count)
+        public override List<Element> GetElementsByElementTypeId(Guid elementTypeId)
         {
+            string getPagedElementTypes = @"SELECT Id, ElementTypeId, Location, Caption FROM Element WHERE ElementTypeId = @ElementTypeId";
+
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
             {
-                SqlCommand cmd = new SqlCommand("ElementTypes_GetRandomElementTypes", cn);
+                SqlCommand cmd = new SqlCommand(getPagedElementTypes, cn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@Count", SqlDbType.Int).Value = count;
+                cmd.Parameters.Add("@ElementTypeId", SqlDbType.UniqueIdentifier).Value = elementTypeId;
                 cn.Open();
-                return GetElementTypeCollectionFromReader(ExecuteReader(cmd));
+                return GetElementCollectionFromReader(ExecuteReader(cmd));
             }
         }
 
@@ -74,19 +76,19 @@ namespace LOB.Data
             }
         }
 
-        public override int InsertElementType(ElementType elementType)
+        public override Guid InsertElementType(ElementType elementType)
         {
+            string insertElementType = @"INSERT INTO ElementType (Code, DrawingTypeId, Caption) OUTPUT INSERTED.Id VALUES (@Code, @DrawingTypeId, @Caption);";
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
             {
-                SqlCommand cmd = new SqlCommand("ElementTypes_InsertElementType", cn);
+                SqlCommand cmd = new SqlCommand(insertElementType, cn);
                 cmd.CommandType = CommandType.Text;
-                //cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = elementType.Name;
-                //cmd.Parameters.Add("@Phone", SqlDbType.NVarChar).Value = elementType.Phone;
-                //cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = elementType.ItemState;
-                cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@Code", SqlDbType.VarChar).Value = elementType.Code;
+                cmd.Parameters.Add("@DrawingTypeId", SqlDbType.UniqueIdentifier).Value = elementType.DrawingTypeId;
+                cmd.Parameters.Add("@Caption", SqlDbType.VarChar).Value = elementType.Caption;
                 cn.Open();
-                int ret = ExecuteNonQuery(cmd);
-                return (int) cmd.Parameters["@Id"].Value;
+                object ret = ExecuteScalar(cmd);
+                return (Guid)ret;
             }
         }
 
@@ -105,13 +107,29 @@ namespace LOB.Data
             }
         }
 
-        public override bool DeleteElementTypeByElementTypeId(int elementTypeId)
+        public override bool DeleteElementTypeByElementTypeId(Guid elementTypeId)
         {
+            string deleteElementTypeByElementTypeId = @"DELETE FROM ElementType WHERE Id = @ElementTypeId";
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
             {
-                SqlCommand cmd = new SqlCommand("ElementTypes_DeleteElementTypeByElementTypeId", cn);
+                SqlCommand cmd = new SqlCommand(deleteElementTypeByElementTypeId, cn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ElementTypeId", SqlDbType.Int).Value = elementTypeId;
+                cmd.Parameters.Add("@ElementTypeId", SqlDbType.UniqueIdentifier).Value = elementTypeId;
+                cn.Open();
+                int ret = ExecuteNonQuery(cmd);
+                return (ret == 1);
+            }
+        }
+
+        public override bool DeleteElementsByElementTypeId(Guid elementTypeId)
+        {
+            string deleteElementByElementTypeId = @"DELETE FROM Element WHERE ElementTypeId = @ElementTypeId";
+
+            using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
+            {
+                SqlCommand cmd = new SqlCommand(deleteElementByElementTypeId, cn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("@ElementTypeId", SqlDbType.UniqueIdentifier).Value = elementTypeId;
                 cn.Open();
                 int ret = ExecuteNonQuery(cmd);
                 return (ret == 1);

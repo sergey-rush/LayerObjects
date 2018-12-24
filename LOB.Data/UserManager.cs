@@ -85,7 +85,7 @@ namespace LOB.Data
         {
             Role user = new Role()
             {
-                Id = (int)reader["Id"],
+                //Id = (int)reader["Id"],
                 Name = reader["Name"].ToString(),
                 Alias = reader["Alias"].ToString()
             };

@@ -65,7 +65,24 @@ namespace LOB.BLL
             }
             return attribute;
         }
-        
+
+        public static List<AttributeValue> GetAttributeValuesByAttributeId(Guid attributeId)
+        {
+            List<AttributeValue> attributeValues = null;
+            string key = "Attributes_GetAttributeValuesByAttributeId_" + attributeId;
+
+            if (Cache[key] != null)
+            {
+                attributeValues = (List<AttributeValue>)Cache[key];
+            }
+            else
+            {
+                attributeValues = DataAccess.Attributes.GetAttributeValuesByAttributeId(attributeId);
+                CacheData(key, attributeValues);
+            }
+            return attributeValues;
+        }
+
         //public static Attribute InsertAttribute(Attribute attribute)
         //{
         //    RemoveFromCache("Attributes_");
@@ -80,5 +97,16 @@ namespace LOB.BLL
             return DataAccess.Attributes.UpdateAttribute(attribute);
         }
 
+        public static bool DeleteAttributeByAttributeId(Guid attributeId)
+        {
+            RemoveFromCache("Attributes_");
+            return DataAccess.Attributes.DeleteAttributeByAttributeId(attributeId);
+        }
+
+        public static bool DeleteAttributeValueByAttributeId(Guid attributeId)
+        {
+            RemoveFromCache("Attributes_");
+            return DataAccess.Attributes.DeleteAttributeValueByAttributeId(attributeId);
+        }
     }
 }

@@ -24,10 +24,10 @@ namespace LOB.Data
         public abstract List<ElementTypeAttribute> GetElementTypeAttributesByElementTypeId(Guid elementTypeId);
         public abstract int CountElementTypeAttributes(Guid elementTypeId);
         public abstract List<ElementTypeAttribute> GetAttributesByElementTypeId(Guid elementTypeId);
-        public abstract ElementTypeAttribute GetElementTypeAttributeByElementTypeAttributeId(int elementTypeAttribute);
         public abstract int InsertElementTypeAttribute(ElementTypeAttribute elementTypeAttribute);
         public abstract bool UpdateElementTypeAttribute(ElementTypeAttribute elementTypeAttribute);
-        public abstract bool DeleteElementTypeAttributeByElementTypeAttributeId(int elementTypeAttributeId);
+        public abstract bool DeleteElementTypeAttributeByAttributeId(Guid attributeId);
+        public abstract bool DeleteElementTypeAttributesByElementTypeId(Guid elementTypeId);
         protected virtual ElementTypeAttribute GetElementTypeAttributeFromReader(IDataReader reader)
         {
             ElementTypeAttribute elementTypeAttribute = new ElementTypeAttribute()

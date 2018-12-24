@@ -115,6 +115,20 @@ WHERE (AttributeId = @AttributeId)";
             }
         }
 
+        public override List<AttributeValue> GetAttributeValuesByAttributeId(Guid attributeId)
+        {
+            string getAttributeValuesByAttributeId = @"SELECT AttributeId, ElementId, Value FROM AttributeValue WHERE (AttributeId = @AttributeId)";
+
+            using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
+            {
+                SqlCommand cmd = new SqlCommand(getAttributeValuesByAttributeId, cn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("@AttributeId", SqlDbType.UniqueIdentifier).Value = attributeId;
+                cn.Open();
+                return GetAttributeValueCollectionFromReader(ExecuteReader(cmd));
+            }
+        }
+
         public override int InsertAttribute(Attribute attribute)
         {
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
@@ -146,13 +160,28 @@ WHERE (AttributeId = @AttributeId)";
             }
         }
 
-        public override bool DeleteAttributeByAttributeId(int attributeId)
+        public override bool DeleteAttributeByAttributeId(Guid attributeId)
         {
+            string deleteAttributeByAttributeId = @"DELETE FROM Attribute WHERE Id = @AttributeId";
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
             {
-                SqlCommand cmd = new SqlCommand("Attributes_DeleteAttributeByAttributeId", cn);
+                SqlCommand cmd = new SqlCommand(deleteAttributeByAttributeId, cn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@AttributeId", SqlDbType.Int).Value = attributeId;
+                cmd.Parameters.Add("@AttributeId", SqlDbType.UniqueIdentifier).Value = attributeId;
+                cn.Open();
+                int ret = ExecuteNonQuery(cmd);
+                return (ret == 1);
+            }
+        }
+
+        public override bool DeleteAttributeValueByAttributeId(Guid attributeId)
+        {
+            string deleteAttributeByAttributeId = @"DELETE FROM AttributeValue WHERE AttributeId = @AttributeId";
+            using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
+            {
+                SqlCommand cmd = new SqlCommand(deleteAttributeByAttributeId, cn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("@AttributeId", SqlDbType.UniqueIdentifier).Value = attributeId;
                 cn.Open();
                 int ret = ExecuteNonQuery(cmd);
                 return (ret == 1);

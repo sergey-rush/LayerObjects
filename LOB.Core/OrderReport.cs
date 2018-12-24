@@ -2,7 +2,7 @@
 {
     public class OrderReport
     {
-        public Shop Shop { get; set; }
+        public Layer Shop { get; set; }
         
         public Customer Customer { get; set; }
 

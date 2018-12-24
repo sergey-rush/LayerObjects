@@ -23,11 +23,12 @@ namespace LOB.Data
 
         public abstract List<ElementType> GetElementTypes(string query);
         public abstract int CountElementTypes(string query);
-        public abstract List<ElementType> GetRandomElementTypes(int count);
+        public abstract List<Element> GetElementsByElementTypeId(Guid elementTypeId);
         public abstract ElementType GetElementTypeByElementTypeId(Guid elementType);
-        public abstract int InsertElementType(ElementType elementType);
+        public abstract Guid InsertElementType(ElementType elementType);
         public abstract bool UpdateElementType(ElementType elementType);
-        public abstract bool DeleteElementTypeByElementTypeId(int elementTypeId);
+        public abstract bool DeleteElementTypeByElementTypeId(Guid elementTypeId);
+        public abstract bool DeleteElementsByElementTypeId(Guid elementTypeId);
         protected virtual ElementType GetElementTypeFromReader(IDataReader reader)
         {
             ElementType elementType = new ElementType()
@@ -52,6 +53,24 @@ namespace LOB.Data
             return items;
         }
 
-       
+        protected virtual Element GetElementFromReader(IDataReader reader)
+        {
+            Element elementType = new Element()
+            {
+                Id = (Guid)reader["Id"],
+                ElementTypeId = (Guid)reader["ElementTypeId"],
+                Caption = reader["Caption"].ToString()
+            };
+            
+            return elementType;
+        }
+
+        protected virtual List<Element> GetElementCollectionFromReader(IDataReader reader)
+        {
+            List<Element> items = new List<Element>();
+            while (reader.Read())
+                items.Add(GetElementFromReader(reader));
+            return items;
+        }
     }
 }

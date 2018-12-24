@@ -26,6 +26,7 @@
             <th scope="col">Code</th>
             <th scope="col">AttributesCount</th>
             <th scope="col">DrawingTypeId</th>
+            <th scope="col">Удаление</th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +49,9 @@
             <td>
                 @item.DrawingTypeId
             </td>
+            <td>
+                <a href="@Url.Action("DeleteElementType", "Objects", new {id = item.Id})" onclick="return confirm('Вы действительно желаете удалить ElementType?')">Удалить</a>
+            </td>
         </tr>
             }
         }
@@ -58,17 +62,3 @@
 <br />
 
 <br />
-
-
-    <script type="text/javascript">
-
-        $(document).scroll(function () {
-            localStorage['page'] = document.URL;
-            localStorage['scrollTop'] = $(document).scrollTop();
-        });
-        $(document).ready(function () {
-            if (localStorage['page'] == document.URL) {
-                $(document).scrollTop(localStorage['scrollTop']);
-            }
-        });
-    </script>
