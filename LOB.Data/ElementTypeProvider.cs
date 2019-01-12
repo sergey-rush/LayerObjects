@@ -10,7 +10,7 @@ namespace LOB.Data
     {
         public override List<ElementType> GetElementTypes(string query)
         {
-            string getPagedElementTypes = @"SELECT Id, Code, DrawingTypeId, Caption FROM ElementType WHERE (Code LIKE CONCAT('%', @Query, '%') OR @Query IS NULL)";
+            string getPagedElementTypes = @"SELECT Id, Code, DrawingTypeId, Caption FROM ElementType WHERE (Caption LIKE CONCAT('%', @Query, '%') OR @Query IS NULL)";
 
             using (SqlConnection cn = new SqlConnection(LayerObjectsConnection))
             {

@@ -2,62 +2,9 @@
 @model LOB.Web.Models.DataModel
 
 <div class="section-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Элементы</h1>
+    <h1 class="display-4">Index</h1>
 </div>
 
-@using (Html.BeginForm("Index", "Objects"))
-{
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputQuery">Поиск</label>
-        </div>
-        @Html.TextBoxFor(m => m.Query, new { id= "inputQuery", type = "text", @class = "form-control", placeholder = "ElementType", autofocus = "" })
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit">Показать</button>
-        </div>
-    </div>
-}
-
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ElementTypeId</th>
-            <th scope="col">Caption</th>
-            <th scope="col">Code</th>
-            <th scope="col">AttributesCount</th>
-            <th scope="col">DrawingTypeId</th>
-            <th scope="col">Удаление</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (ElementType item in Model.ElementTypes)
-            {
-        <tr>
-            <td>
-                @item.Id
-            </td>
-            <td>
-                <a href="@Url.Action("ElementTypeAttributeList", "Objects", new {id = item.Id})">@item.Caption</a>
-            </td>
-            <td>
-                @item.Code
-            </td>
-            <td>
-                @item.AttributesCount
-            </td>
-            <td>
-                @item.DrawingTypeId
-            </td>
-            <td>
-                <a href="@Url.Action("DeleteElementType", "Objects", new {id = item.Id})" onclick="return confirm('Вы действительно желаете удалить ElementType?')">Удалить</a>
-            </td>
-        </tr>
-            }
-        }
-
-    </tbody>
-</table>
 
 <br />
 

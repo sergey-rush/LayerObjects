@@ -8,6 +8,45 @@ namespace LOB.Web.Controllers
 {
     public class ObjectsController : Controller
     {
+        public ActionResult Index()
+        {
+            ViewBag.Title = "ElementTypes";
+            DataModel model = new DataModel();
+            string query = "";
+            model.ElementTypes = ElementTypes.GetElementTypes(query);
+            foreach (ElementType item in model.ElementTypes)
+            {
+                item.AttributesCount = ElementTypeAttributes.CountElementTypeAttributes(item.Id);
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult ElementTypeList()
+        {
+            ViewBag.Title = "ElementTypeList";
+            DataModel model = new DataModel();
+            string query = "";
+            model.ElementTypes = ElementTypes.GetElementTypes(query);
+            foreach (ElementType item in model.ElementTypes)
+            {
+                item.AttributesCount = ElementTypeAttributes.CountElementTypeAttributes(item.Id);
+            }
+            return View(model);
+        }
+        
+        [HttpPost]
+        public ActionResult ElementTypeList(DataModel model)
+        {
+            ViewBag.Title = "ElementTypeList";
+            model.ElementTypes = ElementTypes.GetElementTypes(model.Query);
+            foreach (ElementType item in model.ElementTypes)
+            {
+                item.AttributesCount = ElementTypeAttributes.CountElementTypeAttributes(item.Id);
+            }
+            return View(model);
+        }
+        
         [GuidSelector]
         public ActionResult DeleteElementType(Guid id)
         {
@@ -28,19 +67,6 @@ namespace LOB.Web.Controllers
         {
             Guid id = ElementTypes.InsertElementType(model.SelectedElementType);
             model.DrawingTypes = DrawingTypes.GetDrawingTypes();
-            return View(model);
-        }
-
-        public ActionResult Index()
-        {
-            ViewBag.Title = "ElementTypes";
-            DataModel model = new DataModel();
-            string query = "";
-            model.ElementTypes = ElementTypes.GetElementTypes(query);
-            foreach (ElementType item in model.ElementTypes)
-            {
-                item.AttributesCount = ElementTypeAttributes.CountElementTypeAttributes(item.Id);
-            }
             return View(model);
         }
 
