@@ -10,6 +10,8 @@ namespace LOB.Web.Models
     {
         public string PageHeader { get; set; }
         public string Query { get; set; }
+        public IList<SelectListItem> ConnectionStrings { get; set; }
+        public string SelectedConnectionString { get; set; }
         public List<ElementType> ElementTypes { get; set; }
         public ElementType SelectedElementType { get; set; }
         public List<ElementTypeAttribute> ElementTypeAttributes { get; set; }

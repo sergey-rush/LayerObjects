@@ -6,13 +6,13 @@ namespace LOB.Data
 {
     public abstract class DataAccess
     {
-        protected virtual string ConnectionString
+        protected string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["SqlServer"].ToString(); }
         }
         protected virtual string LayerObjectsConnection
         {
-            get { return ConfigurationManager.ConnectionStrings["LayerObjects"].ToString(); }
+            get { return ConfigurationManager.ConnectionStrings["LayerObjects1"].ToString(); }
         }
         public static RoleManager Roles
         {

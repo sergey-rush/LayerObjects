@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using LOB.BLL;
 using LOB.Core;
+using LOB.Web.Code;
 using LOB.Web.Models;
 
 namespace LOB.Web.Controllers
@@ -10,14 +12,22 @@ namespace LOB.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "ElementTypes";
+            ViewBag.Title = "Con";
             DataModel model = new DataModel();
-            string query = "";
-            model.ElementTypes = ElementTypes.GetElementTypes(query);
-            foreach (ElementType item in model.ElementTypes)
-            {
-                item.AttributesCount = ElementTypeAttributes.CountElementTypeAttributes(item.Id);
-            }
+            List<SelectListItem> keys = Settings.GetConnectionStrings();
+            model.ConnectionStrings = keys;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Index(DataModel model)
+        {
+            ViewBag.Title = "Con";
+            Settings.SetConnectionString(model.SelectedConnectionString);
+            List<SelectListItem> keys = Settings.GetConnectionStrings();
+            model.ConnectionStrings = keys;
+
             return View(model);
         }
 
